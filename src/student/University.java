@@ -11,10 +11,10 @@ interface StudentCriterion {
 
 public class University {
 
-	public static List<Student> getSmartStudents(Iterable<Student> input, float threshold) {
+	public static List<Student> getStudentsByCriterion(Iterable<Student> input, StudentCriterion criterion) {
 		List<Student> rv = new ArrayList<>();
 		for (Student s : input) {
-			if (s.getGpa() > threshold) {
+			if (criterion.test(s)) {
 				rv.add(s);
 			}
 		}
@@ -41,7 +41,7 @@ public class University {
 		System.out.println(lRoster);
 		
 		System.out.println("-----------");
-		System.out.println("Smart students" + getSmartStudents(roster, 3.0F));
+		System.out.println("Smart students" + getStudentsByCriterion(roster, (s)-> s.getGpa() > 3.0F));
 		
 	}
 
