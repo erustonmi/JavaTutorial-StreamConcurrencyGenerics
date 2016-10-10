@@ -5,8 +5,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+interface StudentCriterion {
+	boolean test(Student s);
+}
+
 public class University {
 
+	public static List<Student> getSmartStudents(Iterable<Student> input, float threshold) {
+		List<Student> rv = new ArrayList<>();
+		for (Student s : input) {
+			if (s.getGpa() > threshold) {
+				rv.add(s);
+			}
+		}
+		return rv;
+	}
+	
 	public static void main(String[] args) {
 		Set<Student> roster = new HashSet<>();
 		roster.add(Student.fromNameGpaCourseList("Fred", 2.8F, "Math", "Physics"));
@@ -25,6 +39,10 @@ public class University {
 		lRoster.sort(Student.getGpaComparator());
 		System.out.println("After:");
 		System.out.println(lRoster);
+		
+		System.out.println("-----------");
+		System.out.println("Smart students" + getSmartStudents(roster, 3.0F));
+		
 	}
 
 }
