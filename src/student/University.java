@@ -5,14 +5,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-interface Criterion<E> {
-	boolean test(E e);
-}
+import java.util.function.Predicate;
 
 public class University {
 
-	public static <E> List<E> getByCriterion(Iterable<E> input, Criterion<E> criterion) {
+	public static <E> List<E> getByCriterion(Iterable<E> input, Predicate<E> criterion) {
 		List<E> rv = new ArrayList<>();
 		for (E s : input) {
 			if (criterion.test(s)) {
