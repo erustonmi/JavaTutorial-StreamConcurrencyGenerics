@@ -2,6 +2,7 @@ package student;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,8 +65,9 @@ public class Student implements Comparable<Student> {
 		return true;
 	}
 
-	private Student() {}
-	
+	private Student() {
+	}
+
 	public static Student fromNameGpaCourseList(String name, float gpa, String... courses) {
 		Student rv = new Student();
 		rv.name = name;
@@ -79,4 +81,48 @@ public class Student implements Comparable<Student> {
 		return this.name.compareTo(o.name);
 	}
 
+	// private static final Comparator<Student> gpaComparator = new
+	// /*GpaComparator();
+	// private static class GpaComparator implements */ Comparator<Student>() {
+	//
+	// @Override
+	// public int compare(Student o1, Student o2) {
+	// System.out.println("gpa comp...");
+	// return Float.compare(o1.getGpa(), o2.getGpa());
+	// }
+	// };
+
+	private static final Comparator<Student> gpaComparator = 
+			(o1, o2) -> Float.compare(o1.getGpa(), o2.getGpa());
+
+//	private static final Comparator<Student> gpaComparator = (Student o1, Student o2) -> {
+//		System.out.println("gpa comp...");
+//		return Float.compare(o1.getGpa(), o2.getGpa());
+//	};
+//
+	// private static final Comparator<Student> gpaComparator = /*new*/
+	// /*GpaComparator();
+	// private static class GpaComparator implements */ /*Comparator<Student>()
+	// {*/
+	//
+	// /*@Override
+	// public int compare*/(Student o1, Student o2) -> {
+	// System.out.println("gpa comp...");
+	// return Float.compare(o1.getGpa(), o2.getGpa());
+	// }
+	// /*}*/;
+
+	public static Comparator<Student> getGpaComparator() {
+		return gpaComparator;
+	}
+
+	// private static class GpaComparator implements Comparator<Student> {
+	//
+	// @Override
+	// public int compare(Student o1, Student o2) {
+	// System.out.println("gpa comp...");
+	// return Float.compare(o1.getGpa(), o2.getGpa());
+	// }
+	//
+	// }
 }
