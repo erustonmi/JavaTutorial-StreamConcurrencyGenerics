@@ -97,5 +97,22 @@ public class University {
 		System.out.println("keen: " + getByCriterion(lRoster, keen));
 		System.out.println("overachiever: " + getByCriterion(lRoster, overachiever));
 		
+		System.out.println("-----------------------------");
+		
+		Comparator<Student> byName = Comparator.comparing(s -> s.getName());
+		Comparator<Student> byCourseCount = Comparator.comparingInt(s -> s.getCourses().size());
+		Comparator<Student> byGpa = Comparator.comparingDouble(s -> s.getGpa());
+		Comparator<Student> byGpaCount = byGpa.thenComparing(byCourseCount);
+		
+		lRoster.sort(byGpaCount.reversed());
+		lRoster.forEach(s->System.out.println(s));
+		
+
+		Comparator<Student> c1 = Comparator.comparingDouble(s -> s.getGpa());
+		
+		lRoster.sort(c1.thenComparingInt(s -> s.getCourses().size()));
+		
+		lRoster.sort(Comparator.<Student>comparingDouble(s -> s.getGpa()).thenComparingInt(s -> s.getCourses().size()));
+		
 	}
 }
