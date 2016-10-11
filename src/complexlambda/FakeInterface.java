@@ -19,6 +19,17 @@ class NotQuiteStuff {
 	}
 }
 
+class StuffAdapter implements Stuff {
+	private NotQuiteStuff nqs;
+	public StuffAdapter(NotQuiteStuff nqs) {
+		this.nqs = nqs;
+	}
+	@Override
+	public void doStuff(String s, Integer i) {
+		this.nqs.banana(s, i);
+	}
+}
+
 public class FakeInterface {
 
 	public static void useStuffer(Stuff s) {
@@ -38,6 +49,8 @@ public class FakeInterface {
 				nqs.banana(s, i);
 			}
 		});
+		
+		useStuffer(new StuffAdapter(nqs));
 		
 		Stuff xxx = nqs::banana;
 		System.out.println("xxx gives: " + xxx.getClass().getName());
