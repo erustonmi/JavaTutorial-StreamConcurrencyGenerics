@@ -1,10 +1,10 @@
 package student;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class Student implements Comparable<Student> {
 	private String name;
@@ -81,6 +81,12 @@ public class Student implements Comparable<Student> {
 		return this.name.compareTo(o.name);
 	}
 
+	public static Predicate<Student> getSmartnessPredicate(final float threshold) {
+//		threshold += 0.1F;
+//		int s;
+		return s -> s.getGpa() > threshold;
+	}
+	
 	// private static final Comparator<Student> gpaComparator = new
 	// /*GpaComparator();
 	// private static class GpaComparator implements */ Comparator<Student>() {

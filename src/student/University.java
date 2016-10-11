@@ -10,6 +10,18 @@ import java.util.function.Predicate;
 
 public class University {
 
+	public static <E> Predicate<E> and(Predicate<E> first, Predicate<E> second) {
+		return x -> first.test(x) && second.test(x);
+	}
+	
+	public static <E> Predicate<E> or(Predicate<E> first, Predicate<E> second) {
+		return x -> first.test(x) || second.test(x);
+	}
+	
+	public static <E> Predicate<E> not(Predicate<E> first) {
+		return x -> !first.test(x);
+	}
+	
 	public static <E> Comparator<E> andThenCompare(Comparator<E> first, Comparator<E> second) {
 		return (a,b) -> {
 			int t1 = first.compare(a, b);
@@ -74,6 +86,16 @@ public class University {
 		lRoster.sort(combined);
 		showIterable(lRoster);
 		
+		System.out.println("-----------");
+		Predicate<Student> smart = s -> s.getGpa() >= 3.0F;
+		Predicate<Student> keen = s -> s.getCourses().size() > 3;
+		Predicate<Student> notSmart = not(smart);
+		Predicate<Student> overachiever = and(smart, keen);
+		
+		System.out.println("smart: " + getByCriterion(lRoster, smart));
+		System.out.println("notSmart: " + getByCriterion(lRoster, notSmart));
+		System.out.println("keen: " + getByCriterion(lRoster, keen));
+		System.out.println("overachiever: " + getByCriterion(lRoster, overachiever));
+		
 	}
-
 }
