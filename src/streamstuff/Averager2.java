@@ -1,4 +1,4 @@
-package hello;
+package streamstuff;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
