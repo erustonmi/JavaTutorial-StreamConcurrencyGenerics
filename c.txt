@@ -1,0 +1,4 @@
+This is file C
+it contains three lines
+this is the third line
+------- end of c -------
