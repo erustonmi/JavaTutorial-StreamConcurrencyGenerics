@@ -27,7 +27,7 @@ public class BrokenSharing {
 				while (true) {
 					bs.increment();
 					if (!bs.isValid()) {
-						System.err.println("INVALID!!!!");
+						System.err.println("PRODUCER INVALID!!!!");
 					}
 				}
 			}

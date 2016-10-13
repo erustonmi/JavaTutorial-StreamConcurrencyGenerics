@@ -25,40 +25,38 @@ public class PipelineSharing {
 	public static void main(String[] args) {
 		BlockingQueue<PipelineSharing> queue = new ArrayBlockingQueue<>(10);
 
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				int ticker = 0;
-				while (true) {
-					PipelineSharing ps = new PipelineSharing();
-					int target = ThreadLocalRandom.current().nextInt(0, 150);
-					for (int i = 0; i < target; i++) {
-						ps.increment();
-						if (!ps.isValid()) {
-							System.err.println("INVALID!!!!");
-						}
+		new Thread(() -> {
+			int ticker = 0;
+			while (true) {
+				PipelineSharing ps = new PipelineSharing();
+				int target = ThreadLocalRandom.current().nextInt(0, 150);
+				for (int i = 0; i < target; i++) {
+					ps.increment();
+					if (!ps.isValid()) {
+						System.err.println("INVALID!!!!");
 					}
-					try {
-						queue.put(ps);
-						ps = null;
-					} catch (InterruptedException ie) {
-					}
-					if (++ticker % 100 == 0) {
-						ticker = 0;
-						System.out.print(".");
-						System.out.flush();
-					}
+				}
+				try {
+					queue.put(ps);
+					ps = null;
+				} catch (InterruptedException ie) {
+				}
+				if (++ticker % 10_000 == 0) {
+					ticker = 0;
+					System.out.print(".");
+					System.out.flush();
 				}
 			}
 		}).start();
 
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					try {
-						PipelineSharing ps = queue.take();
-					} catch (InterruptedException ie) {}
+		new Thread(() -> {
+			while (true) {
+				try {
+					PipelineSharing ps = queue.take();
+					if (!ps.isValid()) {
+						System.err.println("INVALID!!!!");
+					}
+				} catch (InterruptedException ie) {
 				}
 			}
 		}).start();
