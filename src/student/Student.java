@@ -81,7 +81,8 @@ public class Student implements Comparable<Student> {
 		return this.name.compareTo(o.name);
 	}
 
-	public static Predicate<Student> getSmartnessPredicate(final float threshold) {
+	public static Predicate<Student> 
+	getSmartnessPredicate(/* effectively final */ float threshold) {
 //		threshold += 0.1F;
 //		int s;
 		return s -> s.getGpa() > threshold;
