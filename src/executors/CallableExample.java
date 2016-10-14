@@ -21,7 +21,8 @@ public class CallableExample {
 			try {
 				Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
 			} catch (InterruptedException ie) {
-				return "Callable " + myId + " shut down on request...";
+				System.out.println("Callable " + myId + " shut down on request...");
+				return "";
 			}
 			System.out.println("Callable " + myId + " finishing...");
 			return "Callable " + myId + " finished";
